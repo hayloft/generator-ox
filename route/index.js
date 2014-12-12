@@ -27,6 +27,7 @@ var Generator = module.exports = function Generator() {
   ) {
     this.foundWhenForRoute = true;
   }
+  this.foundWhenForRoute = true;
 
   this.hookFor('angular:controller');
   this.hookFor('angular:view');
@@ -57,19 +58,25 @@ Generator.prototype.rewriteAppJs = function () {
       this.env.options.appPath,
       'scripts/app.' + (coffee ? 'coffee' : 'js')
     ),
-    needle: '.otherwise',
+    needle: '});',
     splicable: [
-      "  templateUrl: 'views/" + this.name.toLowerCase() + ".html'" + (coffee ? "" : "," ),
-      "  controller: '" + this.classedName + "Ctrl'"
+      "        url: '/" + this.uri + "'" + (coffee ? "" : "," ),
+      "        views: {",
+      "            '@ox': {",
+      "                templateUrl: 'views/" + this.name.toLowerCase() + ".html'" + (coffee ? "" : "," ),
+      "                controller: '" + this.classedName + "Ctrl'",
+      "            }",
+      "        }"
     ]
   };
 
   if (coffee) {
-    config.splicable.unshift(".when '/" + this.uri + "',");
+    config.splicable.unshift("    $stateProvider.state 'ox." + this.uri + "',");
   }
   else {
-    config.splicable.unshift(".when('/" + this.uri + "', {");
-    config.splicable.push("})");
+    config.splicable.unshift("    $stateProvider.state('ox." + this.uri + "', {");
+    config.splicable.unshift("");
+    config.splicable.push("    });");
   }
 
   angularUtils.rewriteFile(config);

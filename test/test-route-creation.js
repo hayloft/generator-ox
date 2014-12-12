@@ -70,7 +70,7 @@ describe('Angular generator route mechanism', function () {
         helpers.assertFile(expected);
         helpers.assertFileContent(
           'app/scripts/app.js',
-          new RegExp('when\\(\'/' + route + '\'')
+          new RegExp('state\\(\'ox.' + route + '\'')
         );
 
         done();
@@ -86,7 +86,7 @@ describe('Angular generator route mechanism', function () {
         helpers.assertFile(expected);
         helpers.assertFileContent(
           'app/scripts/app.js',
-          new RegExp('when\\(\'/' + uri + '\'')
+          new RegExp('state\\(\'ox.' + uri + '\'')
         );
 
         done();

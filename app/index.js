@@ -263,7 +263,7 @@ Generator.prototype.askForModules = function askForModules() {
 
     var angMods = [];
 
-    if (this.animateModule) {
+    /*if (this.animateModule) {
       angMods.push("'ngAnimate'");
     }
 
@@ -294,7 +294,9 @@ Generator.prototype.askForModules = function askForModules() {
 
     if (this.touchModule) {
       angMods.push("'ngTouch'");
-    }
+    }*/
+
+    angMods.push("'oxCore'");
 
     if (angMods.length) {
       this.env.options.angularDeps = '\n    ' + angMods.join(',\n    ') + '\n  ';

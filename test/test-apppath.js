@@ -20,6 +20,7 @@ describe('Angular generator appPath option', function () {
     '.editorconfig',
     '.gitignore',
     '.jshintrc',
+    '.jscsrc',
     'Gruntfile.js',
     'package.json',
     'bower.json'

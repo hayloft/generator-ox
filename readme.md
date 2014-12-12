@@ -1,4 +1,4 @@
-# AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.svg?branch=master)](http://travis-ci.org/yeoman/generator-angular)
+# AngularJS generator [![Build Status](https://travis-ci.org/hayloft/ox-ui-generator.svg?branch=master)](https://travis-ci.org/hayloft/ox-ui-generator)
 
 > Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practices.
 

@@ -1,5 +1,5 @@
 {
-  "name": "generator-angular",
+  "name": "ox-ui-generator",
   "version": "0.10.0",
   "description": "Yeoman generator for AngularJS",
   "keywords": [

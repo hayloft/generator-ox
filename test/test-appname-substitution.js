@@ -52,20 +52,20 @@ describe('Angular generator template mechanism', function () {
 
       helpers.assertFileContent(
         'app/scripts/app.js',
-        new RegExp('module\\(\'' + appName + 'App\'')
+        new RegExp('module\\(\'' + appName + '\'')
       );
       helpers.assertFileContent(
         'app/scripts/controllers/main.js',
-        new RegExp('module\\(\'' + appName + 'App\'')
+        new RegExp('module\\(\'' + appName + '\'')
       );
       helpers.assertFileContent(
         'test/spec/controllers/main.js',
-        new RegExp('module\\(\'' + appName + 'App\'')
+        new RegExp('module\\(\'' + appName + '\'')
       );
 
       helpers.assertFileContent(
         'app/index.html',
-        new RegExp('ng-app=\"' + appName + 'App\"')
+        new RegExp('ng-app=\"' + appName + '\"')
       );
       done();
     });

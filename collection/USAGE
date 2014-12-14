@@ -1,0 +1,11 @@
+Description:
+    Creates a new OX collection view
+
+Example:
+    yo angular:collection [--name]
+
+    This will create:
+        app/scripts/controllers/thing.js
+        app/views/thing.html
+    And add routing to:
+        app.js

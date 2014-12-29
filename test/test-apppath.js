@@ -45,7 +45,7 @@ describe('Angular generator appPath option', function () {
       }
 
       angular = helpers.createGenerator(
-        'angular:app',
+        'ox:app',
         [
           '../../app',
           '../../common',
@@ -101,7 +101,7 @@ describe('Angular generator appPath option', function () {
       var angularGenerator;
       var name = 'foo';
       var deps = [path.join('../..', generatorType)];
-      angularGenerator = helpers.createGenerator('angular:' + generatorType, deps, [name], genOptions);
+      angularGenerator = helpers.createGenerator('ox:' + generatorType, deps, [name], genOptions);
 
       angular.run([], function () {
         angularGenerator.run([], function () {
@@ -146,7 +146,7 @@ describe('Angular generator appPath option', function () {
     it('should generate a new view', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo'], genOptions);
+      angularView = helpers.createGenerator('ox:view', deps, ['foo'], genOptions);
 
       helpers.mockPrompt(angular, mockPrompts);
       angular.run([], function () {
@@ -160,7 +160,7 @@ describe('Angular generator appPath option', function () {
     it('should generate a new view in subdirectories', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo/bar'], genOptions);
+      angularView = helpers.createGenerator('ox:view', deps, ['foo/bar'], genOptions);
 
       helpers.mockPrompt(angular, mockPrompts);
       angular.run([], function () {

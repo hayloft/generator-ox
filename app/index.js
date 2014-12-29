@@ -10,9 +10,9 @@ var chalk = require('chalk');
 
 var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
-  this.argument('appname', { type: String, required: false });
+  this.argument('appname', { type: String, required: true });
   this.appname = this.appname || path.basename(process.cwd());
-  this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+  this.appname = 'ox' + this.appname.charAt(0).toUpperCase() + this.appname.substring(1);
 
   this.option('app-suffix', {
     desc: 'Allow a custom suffix to be added to the module name',
@@ -71,38 +71,6 @@ var Generator = module.exports = function Generator(args, options) {
 
   this.on('end', function () {
     var enabledComponents = [];
-
-    if (this.animateModule) {
-      enabledComponents.push('angular-animate/angular-animate.js');
-    }
-
-    if (this.ariaModule) {
-      enabledComponents.push('angular-aria/angular-aria.js');
-    }
-
-    if (this.cookiesModule) {
-      enabledComponents.push('angular-cookies/angular-cookies.js');
-    }
-
-    if (this.messagesModule) {
-      enabledComponents.push('angular-messages/angular-messages.js');
-    }
-
-    if (this.resourceModule) {
-      enabledComponents.push('angular-resource/angular-resource.js');
-    }
-
-    if (this.routeModule) {
-      enabledComponents.push('angular-route/angular-route.js');
-    }
-
-    if (this.sanitizeModule) {
-      enabledComponents.push('angular-sanitize/angular-sanitize.js');
-    }
-
-    if (this.touchModule) {
-      enabledComponents.push('angular-touch/angular-touch.js');
-    }
 
     enabledComponents = [
       'angular/angular.js',
@@ -206,105 +174,11 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   }.bind(this));
 };
 
-Generator.prototype.askForModules = function askForModules() {
+/*Generator.prototype.askForModules = function askForModules() {
   var cb = this.async();
 
-  var prompts = [{
-    type: 'checkbox',
-    name: 'modules',
-    message: 'Which modules would you like to include?',
-    choices: [
-    {
-      value: 'animateModule',
-      name: 'angular-animate.js',
-      checked: true
-    }, {
-      value: 'ariaModule',
-      name: 'angular-aria.js',
-      checked: false
-    }, {
-      value: 'cookiesModule',
-      name: 'angular-cookies.js',
-      checked: true
-    }, {
-      value: 'resourceModule',
-      name: 'angular-resource.js',
-      checked: true
-    }, {
-      value: 'messagesModule',
-      name: 'angular-messages.js',
-      checked: false
-    }, {
-      value: 'routeModule',
-      name: 'angular-route.js',
-      checked: true
-    }, {
-      value: 'sanitizeModule',
-      name: 'angular-sanitize.js',
-      checked: true
-    }, {
-      value: 'touchModule',
-      name: 'angular-touch.js',
-      checked: true
-    }
-    ]
-  }];
-
-  this.prompt(prompts, function (props) {
-    var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
-    this.animateModule = hasMod('animateModule');
-    this.ariaModule = hasMod('ariaModule');
-    this.cookiesModule = hasMod('cookiesModule');
-    this.messagesModule = hasMod('messagesModule');
-    this.resourceModule = hasMod('resourceModule');
-    this.routeModule = hasMod('routeModule');
-    this.sanitizeModule = hasMod('sanitizeModule');
-    this.touchModule = hasMod('touchModule');
-
-    var angMods = [];
-
-    /*if (this.animateModule) {
-      angMods.push("'ngAnimate'");
-    }
-
-    if (this.ariaModule) {
-      angMods.push("'ngAria'");
-    }
-
-    if (this.cookiesModule) {
-      angMods.push("'ngCookies'");
-    }
-
-    if (this.messagesModule) {
-      angMods.push("'ngMessages'");
-    }
-
-    if (this.resourceModule) {
-      angMods.push("'ngResource'");
-    }
-
-    if (this.routeModule) {
-      angMods.push("'ngRoute'");
-      this.env.options.ngRoute = true;
-    }
-
-    if (this.sanitizeModule) {
-      angMods.push("'ngSanitize'");
-    }
-
-    if (this.touchModule) {
-      angMods.push("'ngTouch'");
-    }*/
-
-    angMods.push("'oxCore'");
-
-    if (angMods.length) {
-      this.env.options.angularDeps = '\n    ' + angMods.join(',\n    ') + '\n  ';
-    }
-
-    cb();
-  }.bind(this));
-};
+  var prompts = [];
+};*/
 
 Generator.prototype.readIndex = function readIndex() {
   this.ngRoute = this.env.options.ngRoute;

@@ -15,6 +15,8 @@ var Generator = module.exports = function Generator() {
   }
   this.appname = this._.slugify(this._.humanize(this.appname));
   this.scriptAppName = this._.camelize(this.appname) + angularUtils.appName(this);
+  this.cleanAppName = this.appname.replace('ox-', '') + angularUtils.appName(this);
+  this.i18nAppName = 'Ox' + this.cleanAppName.charAt(0).toUpperCase() + this.cleanAppName.substring(1) + angularUtils.appName(this);
 
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);

@@ -10,13 +10,9 @@
  */
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])
     .config(function($stateProvider) {
-        $stateProvider.state('ox.<%= routeName %>', {
-            url: '/<%= routeName %>',
-            views: {
-                '@ox': {
-                    templateUrl: 'modules/ox-help/src/views/main.html',
-                    controller: 'MainCtrl'
-                }
-            }
+        $stateProvider.state('ox.<%= cleanAppName %>', {
+            url: '/<%= cleanAppName %>',
+            template: '<ui-view></ui-view>',
+            abstract: true
         });
     });

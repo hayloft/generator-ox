@@ -57,15 +57,15 @@ var Generator = module.exports = function Generator(args, options) {
     this.env.options.coffee = this.options.coffee;
   }
 
-  this.hookFor('angular:common', {
+  this.hookFor('ox:common', {
     args: args
   });
 
-  this.hookFor('angular:main', {
+  this.hookFor('ox:main', {
     args: args
   });
 
-  this.hookFor('angular:controller', {
+  this.hookFor('ox:controller', {
     args: args
   });
 
@@ -134,7 +134,7 @@ var Generator = module.exports = function Generator(args, options) {
     });
 
     if (this.env.options.ngRoute) {
-      this.invoke('angular:route', {
+      this.invoke('ox:route', {
         args: ['about']
       });
     }

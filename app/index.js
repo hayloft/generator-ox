@@ -36,11 +36,17 @@ var Generator = module.exports = function Generator(args, options) {
         this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
       } catch (e) {}
     }
-    this.env.options.appPath = this.env.options.appPath || 'app';
+    this.env.options.appPath = this.env.options.appPath || 'src';
     this.options.appPath = this.env.options.appPath;
   }
 
   this.appPath = this.env.options.appPath;
+
+  function toDash(string) {
+    return string.replace(/([A-Z])/g, function($1){return '-'+$1.toLowerCase();});
+  }
+
+  this.packageName = toDash(this.appname);
 
   if (typeof this.env.options.coffee === 'undefined') {
     this.option('coffee', {
@@ -65,48 +71,9 @@ var Generator = module.exports = function Generator(args, options) {
     args: args
   });
 
-  this.hookFor('ox:controller', {
+  /*this.hookFor('ox:controller', {
     args: args
-  });
-
-  this.on('end', function () {
-    var enabledComponents = [];
-
-    enabledComponents = [
-      'angular/angular.js',
-      'angular-mocks/angular-mocks.js'
-    ].concat(enabledComponents).join(',');
-
-    var jsExt = this.options.coffee ? 'coffee' : 'js';
-
-    this.invoke('karma:app', {
-      options: {
-        'skip-install': this.options['skip-install'],
-        'base-path': '../',
-        'coffee': this.options.coffee,
-        'travis': true,
-        'bower-components': enabledComponents,
-        'app-files': 'app/scripts/**/*.' + jsExt,
-        'test-files': [
-          'test/mock/**/*.' + jsExt,
-          'test/spec/**/*.' + jsExt
-        ].join(','),
-        'bower-components-path': 'bower_components'
-      }
-    });
-
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      skipMessage: this.options['skip-message'],
-      callback: this._injectDependencies.bind(this)
-    });
-
-    if (this.env.options.ngRoute) {
-      this.invoke('ox:route', {
-        args: ['about']
-      });
-    }
-  });
+  });*/
 
   this.pkg = require('../package.json');
   this.sourceRoot(path.join(__dirname, '../templates/common'));
@@ -134,59 +101,13 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
-Generator.prototype.askForCompass = function askForCompass() {
-  var cb = this.async();
-
-  this.prompt([{
-    type: 'confirm',
-    name: 'compass',
-    message: 'Would you like to use Sass (with Compass)?',
-    default: true
-  }], function (props) {
-    this.compass = props.compass;
-
-    cb();
-  }.bind(this));
-};
-
-Generator.prototype.askForBootstrap = function askForBootstrap() {
-  var compass = this.compass;
-  var cb = this.async();
-
-  this.prompt([{
-    type: 'confirm',
-    name: 'bootstrap',
-    message: 'Would you like to include Bootstrap?',
-    default: true
-  }, {
-    type: 'confirm',
-    name: 'compassBootstrap',
-    message: 'Would you like to use the Sass version of Bootstrap?',
-    default: true,
-    when: function (props) {
-      return props.bootstrap && compass;
-    }
-  }], function (props) {
-    this.bootstrap = props.bootstrap;
-    this.compassBootstrap = props.compassBootstrap;
-
-    cb();
-  }.bind(this));
-};
-
-/*Generator.prototype.askForModules = function askForModules() {
-  var cb = this.async();
-
-  var prompts = [];
-};*/
-
 Generator.prototype.readIndex = function readIndex() {
   this.ngRoute = this.env.options.ngRoute;
   this.indexFile = this.engine(this.read('app/index.html'), this);
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var cssFile = 'styles/main.' + (this.compass ? 's' : '') + 'css';
+  var cssFile = 'styles/main.less';
   this.copy(
     path.join('app', cssFile),
     path.join(this.appPath, cssFile)
@@ -214,29 +135,4 @@ Generator.prototype.packageFiles = function packageFiles() {
   this.template('root/_bowerrc', '.bowerrc');
   this.template('root/_package.json', 'package.json');
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
-};
-
-Generator.prototype._injectDependencies = function _injectDependencies() {
-  if (this.options['skip-install']) {
-    this.log(
-      'After running `npm install & bower install`, inject your front end dependencies' +
-      '\ninto your source code by running:' +
-      '\n' +
-      '\n' + chalk.yellow.bold('grunt wiredep')
-    );
-  } else {
-    wiredep({
-      directory: 'bower_components',
-      bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-      ignorePath: new RegExp('^(' + this.appPath + '|..)/'),
-      src: 'app/index.html',
-      fileTypes: {
-        html: {
-          replace: {
-            css: '<link rel="stylesheet" href="{{filePath}}">'
-          }
-        }
-      }
-    });
-  }
 };

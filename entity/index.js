@@ -22,7 +22,7 @@ var Generator = module.exports = function Generator() {
     'scripts/app.' + (this.env.options.coffee ? 'coffee' : 'js')
   ), 'utf-8').match(/\.when/);
 
-  this.hookFor('ox:controller');
+  //this.hookFor('ox:controller');
   this.hookFor('ox:repository');
 };
 
@@ -41,7 +41,7 @@ Generator.prototype.rewriteAppJs = function () {
   var config = {
     file: path.join(
       this.env.options.appPath,
-      'scripts/app.' + (coffee ? 'coffee' : 'js')
+      'scripts/configs/states.' + (coffee ? 'coffee' : 'js')
     ),
     needle: '});',
     splicable: [

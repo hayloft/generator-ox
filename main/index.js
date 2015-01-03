@@ -15,4 +15,5 @@ Generator.prototype.createAppFile = function createAppFile() {
   this.routeName = this.appname.toLowerCase();
   this.ngRoute = this.env.options.ngRoute;
   this.appTemplate('app', 'scripts/app');
+  this.appTemplate('states', 'scripts/configs/states');
 };

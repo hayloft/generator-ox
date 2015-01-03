@@ -6,13 +6,6 @@
  * @description
  * # <%= scriptAppName %>
  *
- * Main module of the application.
+ * <%= scriptAppName %> module.
  */
-angular.module('<%= scriptAppName %>', [<%= angularModules %>])
-    .config(function($stateProvider) {
-        $stateProvider.state('ox.<%= cleanAppName %>', {
-            url: '/<%= cleanAppName %>',
-            template: '<ui-view></ui-view>',
-            abstract: true
-        });
-    });
+angular.module('<%= scriptAppName %>', ['oxCore']);

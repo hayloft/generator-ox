@@ -1,8 +1,15 @@
 {<% var ngVer = "1.3.0" %>
   "name": "<%= _.slugify(_.humanize(appname)) %>",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "homepage": "ox.hayloft-it.ch/ui/<%= _.slugify(_.humanize(appname)) %>",
+  "description": "",
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
   "dependencies": {
-    "ox-core": "git@server.hayloft-it.ch:ox/ox-core-ui.git#upgrade"
+    "ox-core": "git@gitlab.hayloft-it.ch:office-x-ui/ox-core.git"
   },
   "devDependencies": {
     "angular-mocks": "^<%= ngVer %>",

@@ -1,0 +1,8 @@
+<% if (edit) { %><md-list>
+    <md-item>
+        <detail>
+            <value>{{ <%= object %>.name }}</value>
+            <label>{{ '<%= i18nAppName %>.Widget.<%= lName %>.Name' | translate }}</label>
+        </detail>
+    </md-item>
+</md-list><% } %>

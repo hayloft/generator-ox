@@ -1,0 +1,32 @@
+<collection repository="repository">
+    <header ng-show="collection" layout="row">
+        <div class="fab">
+            <md-button class="md-fab md-primary" ng-click="add($event)">
+                <icon name="'plus'"></icon>
+            </md-button>
+        </div>
+        <div class="columns" layout="row" layout-align="start center" flex>
+            <div flex="20">
+                {{ '<%= i18nAppName %>.<%= lName %>.id' | translate }}
+            </div>
+        </div>
+    </header>
+    <md-item ng-repeat="<%= name %> in collection">
+        <div class="row" layout="row" layout-align="start center" flex>
+            <div class="image">
+
+            </div>
+            <div class="columns" layout="row" layout-align="start center" flex>
+                <div flex="20">
+                    <a ui-sref="ox.<%= cleanAppName %>.<%= name %>.show(<%= name %>)">{{ <%= name %>.id }}</a>
+                </div>
+                <div flex></div>
+                <div class="actions">
+                    <md-button ui-sref="ox.<%= cleanAppName %>.<%= name %>.show(<%= name %>)" class="md-primary">
+                        {{ 'OxCore.Directive.Collection.Open' | translate }}
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </md-item>
+</collection>

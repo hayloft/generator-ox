@@ -86,7 +86,7 @@ Generator.prototype.welcome = function welcome() {
     this.log(yosay());
     this.log(
       chalk.magenta(
-        'Out of the box I include Bootstrap and some AngularJS recommended modules.' +
+        'I generate an ox module.' +
         '\n'
       )
     );
@@ -102,8 +102,8 @@ Generator.prototype.welcome = function welcome() {
 };
 
 Generator.prototype.readIndex = function readIndex() {
-  this.ngRoute = this.env.options.ngRoute;
-  this.indexFile = this.engine(this.read('app/index.html'), this);
+  //this.ngRoute = this.env.options.ngRoute;
+  //this.indexFile = this.engine(this.read('app/index.html'), this);
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
@@ -115,18 +115,18 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 };
 
 Generator.prototype.appJs = function appJs() {
-  this.indexFile = this.appendFiles({
+  /*this.indexFile = this.appendFiles({
     html: this.indexFile,
     fileType: 'js',
     optimizedPath: 'scripts/scripts.js',
     sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
     searchPath: ['.tmp', this.appPath]
-  });
+  });*/
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.indexFile = this.indexFile.replace(/&apos;/g, "'");
-  this.write(path.join(this.appPath, 'index.html'), this.indexFile);
+  //this.indexFile = this.indexFile.replace(/&apos;/g, "'");
+  //this.write(path.join(this.appPath, 'index.html'), this.indexFile);
 };
 
 Generator.prototype.packageFiles = function packageFiles() {

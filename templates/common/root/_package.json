@@ -1,8 +1,9 @@
 {
   "name": "<%= packageName %>",
   "version": "0.0.0",
+  "private": true,
   "dependencies": {
-    "ox-test": "git+ssh://git@gitlab.hayloft-it.ch:office-x-ui/ox-test.git#master",
+    "ox-grunt": "git+ssh://git@gitlab.hayloft-it.ch:office-x-ui/ox-grunt.git",
     "grunt": "^0.4.5"
   },
   "engines": {

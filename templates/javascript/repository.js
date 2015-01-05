@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name <%= scriptAppName %>.<%= name %>Repository
+ * @name <%= scriptAppName %>.<%= repositoryName %>Repository
  * @description
- * # <%= name %>Repository
+ * # <%= repositoryName %>Repository
  * Repository in <%= scriptAppName %>.
  */
 angular.module('<%= scriptAppName %>')
-    .factory('<%= name %>Repository', function (Repository) {
-        return new Repository('/<%= cleanAppName %>/<%= name %>/:id');
+    .factory('<%= repositoryName %>Repository', function (Repository) {
+        return new Repository('/<%= cleanAppName %>/<%= repositoryName %>/:id');
     });

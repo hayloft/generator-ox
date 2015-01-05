@@ -49,24 +49,18 @@ Generator.prototype.rewriteAppJs = function () {
       "        url: '/" + this.name + "',",
       "        data: {",
       "            redirectTo: 'ox." + this.cleanAppName + "." + this.name + ".list',",
-      "            title: '" + this.i18nAppName + "." + this.lName + ".Title',",
+      "            title: '" + this.i18nAppName + ".View." + this.lName + ".Title',",
       "            icon: ''",
       "        },",
-      "        templateUrl: 'modules/ox-" + this.cleanAppName + "/src/views/partials/" + this.name + "/main.html',",
+      "        template: '<div ui-view></div>',",
       "        abstract: true",
       "    });",
       "    $stateProvider.state('ox." + this.cleanAppName + "." + this.name + ".list', {",
       "        url: '/list?query&filter&page',",
       "        views: {",
-      "            actions: {",
-      "                templateUrl: 'modules/ox-" + this.cleanAppName + "/src/views/partials/" + this.name + "/list/actions.html'",
-      "            },",
-      "            content: {",
-      "                controller: function($scope, " + this.name + "Repository) {",
-      "                     $scope.repository = " + this.name + "Repository;",
-      "                     $scope.template   = 'modules/ox-" + this.cleanAppName + "/src/views/partials/" + this.name + "/list/" + this.name + ".html';",
-      "                },",
-      "                template: '<collection repository=\"repository\" template=\"template\"></collection>'",
+      "            '': {",
+      "                controller: '" + this.lName + "ListCtrl',",
+      "                templateUrl: 'modules/ox-" + this.cleanAppName + "/src/views/partials/" + this.name + "/list.html'",
       "            }",
       "        }",
       "    });",
@@ -85,30 +79,30 @@ Generator.prototype.rewriteAppJs = function () {
       "            }",
       "        },",
       "        views: {",
-      "            actions: {",
-      "                controller: '" + this.lName + "ActionsCtrl',",
-      "                templateUrl: 'modules/ox-" + this.cleanAppName + "/src/views/partials/" + this.name + "/show/actions.html'",
-      "            },",
-      "            content: {",
+      "            '': {",
       "                controller: '" + this.lName + "ShowCtrl',",
       "                templateUrl: 'modules/ox-" + this.cleanAppName + "/src/views/partials/" + this.name + "/show/content.html'",
+      "            },",
+      "            'actions@ox': {",
+      "                controller: '" + this.lName + "ActionsCtrl',",
+      "                templateUrl: 'modules/ox-" + this.cleanAppName + "/src/views/partials/" + this.name + "/show/actions.html'",
       "            }",
       "        }",
-      "    });",
+      "    });"/*,
       "    $stateProvider.state('ox." + this.cleanAppName + "." + this.name + ".create', {",
       "        url: '/create',",
       "        data: {",
       "            redirectTo: null,",
-      "            title: '" + this.i18nAppName + "." + this.lName + ".Create.Title',",
+      "            title: '" + this.i18nAppName + ".Create." + this.lName + ".Title',",
       "            icon: 'plus'",
       "        },",
       "        views: {",
-      "            content: {",
+      "            '': {",
       "                controller: '" + this.lName + "CreateCtrl',",
       "                templateUrl: 'modules/ox-" + this.cleanAppName + "/src/views/partials/" + this.name + "/create.html'",
       "            }",
       "        }",
-      "    });"
+      "    });"*/
     ]
   };
 
@@ -120,15 +114,10 @@ Generator.prototype.createViews = function createViews() {
   this.template('../common/entity/show/actions.html', this.env.options.appPath + '/views/partials/' + this.name + '/show/actions.html');
   this.template('../common/entity/show/content.html', this.env.options.appPath + '/views/partials/' + this.name + '/show/content.html');
 
-  // main route
-  this.template('../common/entity/main.html', this.env.options.appPath + '/views/partials/' + this.name + '/main.html');
-
-  // create route
-  this.template('../common/entity/create.html', this.env.options.appPath + '/views/partials/' + this.name + '/create.html');
-
   // list route
-  this.template('../common/entity/list/actions.html', this.env.options.appPath + '/views/partials/' + this.name + '/list/actions.html');
-  this.template('../common/entity/list/item.html', this.env.options.appPath + '/views/partials/' + this.name + '/list/' + this.name + '.html');
+  this.template('../common/entity/list/list.html', this.env.options.appPath + '/views/partials/' + this.name + '/list.html');
+
+  this.template('../common/form.html', this.env.options.appPath + '/views/forms/' + this.name + '.html');
 
   var beforeName = this.name;
   this.entityName = beforeName;
@@ -151,11 +140,20 @@ Generator.prototype.createViews = function createViews() {
     this.options['skip-add'] || false
   );
 
-  this.name = beforeName + '-create';
-  this.classedName = beforeName.charAt(0).toUpperCase() + beforeName.substring(1) + 'Create';
+  this.name = beforeName + '-add';
+  this.classedName = beforeName.charAt(0).toUpperCase() + beforeName.substring(1) + 'Add';
   this.generateSourceAndTest(
     'entity-create',
     'spec/entity-create',
+    'controllers',
+    this.options['skip-add'] || false
+  );
+
+  this.name = beforeName + '-list';
+  this.classedName = beforeName.charAt(0).toUpperCase() + beforeName.substring(1) + 'List';
+  this.generateSourceAndTest(
+    'entity-list',
+    'spec/entity-list',
     'controllers',
     this.options['skip-add'] || false
   );

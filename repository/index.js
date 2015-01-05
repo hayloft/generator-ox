@@ -11,6 +11,9 @@ var Generator = module.exports = function Generator() {
   if (this.name && this.name.toLowerCase() !== 'ctrl' && this.name.substr(-4).toLowerCase() === 'ctrl') {
     this.name = this.name.slice(0, -4);
   }
+
+  this.repositoryName = this.name;
+  this.name = this.name + '-repository';
 };
 
 util.inherits(Generator, ScriptBase);

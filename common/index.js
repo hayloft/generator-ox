@@ -27,7 +27,6 @@ Generator.prototype.setupEnv = function setupEnv() {
     this.copy(join('app', dest), join(appPath, dest));
   }.bind(this);
 
-  copy('.buildignore');
-  copy('views/main.html');
+  //copy('.buildignore');
   this.directory(join('app', 'images'), join(appPath, 'images'));
 };
